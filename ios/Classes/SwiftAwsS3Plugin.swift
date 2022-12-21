@@ -163,7 +163,7 @@ public class SwiftAwsS3Plugin: NSObject, FlutterPlugin {
             
             uploadRequest.bucket = bucketName as? String
             uploadRequest.contentType = "\(fileType)"
-            uploadRequest.acl = .public
+            uploadRequest.acl = .publicRead
             uploadRequest.uploadProgress = { (bytesSent, totalBytesSent,
                 totalBytesExpectedToSend) -> Void in
                 DispatchQueue.main.async(execute: {
