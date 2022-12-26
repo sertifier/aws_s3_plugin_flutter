@@ -185,7 +185,7 @@ public class AwsS3PluginFlutterPlugin implements FlutterPlugin, MethodCallHandle
     }
     Log.d(TAG,"fileinfo:" + awsPath);
     TransferObserver transferObserver1 = transferUtility1
-            .upload(bucketName, awsPath, new File(filePath), CannedAccessControlList.Private);
+            .upload(bucketName, awsPath, new File(filePath), CannedAccessControlList.PublicRead);
 
     transferObserver1.setTransferListener(new Transfer());
   }
