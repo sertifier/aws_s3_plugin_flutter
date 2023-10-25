@@ -8,21 +8,21 @@ class AwsS3PluginFlutter {
   final File file;
   final String fileNameWithExt;
   final String awsFolderPath;
-  final String poolId;
+  final String? poolId;
   final Regions region;
   final String bucketName;
   final String AWSAccess;
   final String AWSSecret;
 
   AwsS3PluginFlutter({
-    @required this.file,
-    @required this.fileNameWithExt,
-    @required this.awsFolderPath,
+    required this.file,
+    required this.fileNameWithExt,
+    required this.awsFolderPath,
     this.poolId,
     this.region = Regions.US_WEST_2,
-    @required this.bucketName,
-    @required this.AWSAccess,
-    @required this.AWSSecret,
+    required this.bucketName,
+    required this.AWSAccess,
+    required this.AWSSecret,
   });
 
   static const EventChannel _eventChannel =
@@ -31,7 +31,7 @@ class AwsS3PluginFlutter {
   static const MethodChannel _channel =
       const MethodChannel('org.deetechpk/aws_s3_plugin_flutter');
 
-  Future<String> get uploadFile async {
+  Future<String?> get uploadFile async {
     Map<String, dynamic> args = <String, dynamic>{};
     args.putIfAbsent("filePath", () => file.path);
     args.putIfAbsent("awsFolder", () => awsFolderPath);
@@ -43,12 +43,12 @@ class AwsS3PluginFlutter {
 
     debugPrint("AwsS3Plugin: file path is: ${file.path}");
 
-    final String result = await _channel.invokeMethod('uploadToS3', args);
+    final String? result = await _channel.invokeMethod('uploadToS3', args);
 
     return result;
   }
 
-  Future<String> get getPreSignedURLOfFile async {
+  Future<String?> get getPreSignedURLOfFile async {
     try {
       Map<String, dynamic> args = <String, dynamic>{};
       args.putIfAbsent("awsFolder", () => awsFolderPath);
@@ -58,7 +58,7 @@ class AwsS3PluginFlutter {
       args.putIfAbsent("AWSSecret", () => AWSSecret);
       args.putIfAbsent("AWSAccess", () => AWSAccess);
 
-      final String result =
+      final String? result =
           await _channel.invokeMethod('createPreSignedURL', args);
 
       return result;
